@@ -1,0 +1,12 @@
+<section>
+    <div style="height: 300px;" leaflet [leafletOptions]="options" [leafletLayers]="layers">
+    </div>
+    <form>
+        <input type="text" placeholder="Filter by city" />
+        <button class="primary" type="button">Search</button>
+    </form>
+</section>
+<section class="results">
+    <app-weather-location *ngFor="let weatherLocation of weatherLocationList"
+        [weatherLocation]="weatherLocation"></app-weather-location>
+</section>
