@@ -1,0 +1,6 @@
+{
+  "title": "Energy Dashboard",
+  "type": "editor",
+  "answerSrc": "../energy-dashboard/src",
+  "openFiles": ["src/app/app.component.ts"]
+}
