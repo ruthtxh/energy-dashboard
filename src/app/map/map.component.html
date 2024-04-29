@@ -1,12 +1,15 @@
-<section>
-    <div style="height: 300px;" leaflet [leafletOptions]="options" [leafletLayers]="layers">
-    </div>
-    <form>
-        <input type="text" placeholder="Filter by city" />
-        <button class="primary" type="button">Search</button>
-    </form>
-</section>
-<section class="results">
-    <app-weather-location *ngFor="let weatherLocation of weatherLocationList"
-        [weatherLocation]="weatherLocation"></app-weather-location>
-</section>
+<div class="container" style="margin-bottom: 30px;">
+	<div class="row">
+		<div class="col-md-12">
+			<!-- Map -->
+			<div leaflet style="height: 600px;"
+				 [leafletOptions]="options"
+				 [leafletBaseLayers]="baseLayers"
+				 [leafletLayersControlOptions]="layersControlOptions"
+				 [leafletMarkerCluster]="markerClusterData"
+				 [leafletMarkerClusterOptions]="markerClusterOptions"
+				 (leafletMarkerClusterReady)="markerClusterReady($event)">
+			</div>
+		</div>
+	</div>
+</div>
