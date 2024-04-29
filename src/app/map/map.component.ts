@@ -16,7 +16,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 	selector: 'markercluster-demo',
 	standalone: true,
 	imports: [LeafletModule,
-		LeafletMarkerClusterModule, NgbModal],
+		LeafletMarkerClusterModule],
 	templateUrl: './map.component.html',
 
 	encapsulation: ViewEncapsulation.None,
