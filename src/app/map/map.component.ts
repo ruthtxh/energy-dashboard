@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { WeatherLocationComponent } from '../weather-location/weather-location.component';
 import { WeatherLocation } from '../weatherlocation';
 import { WeatherService } from '../weather.service';
@@ -9,13 +9,17 @@ import { Control } from 'leaflet';
 import LayersOptions = Control.LayersOptions;
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
 	selector: 'markercluster-demo',
 	standalone: true,
 	imports: [LeafletModule,
-		LeafletMarkerClusterModule,],
-	templateUrl: './map.component.html'
+		LeafletMarkerClusterModule, NgbModal],
+	templateUrl: './map.component.html',
+
+	encapsulation: ViewEncapsulation.None,
 })
 
 export class MapComponent implements OnInit {
@@ -30,7 +34,7 @@ export class MapComponent implements OnInit {
 		name: 'Open Street Map',
 		enabled: false,
 		layer: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-		
+
 			attribution: 'Open Street Map'
 		}),
 	};
@@ -79,5 +83,9 @@ export class MapComponent implements OnInit {
 			})
 			this.markerClusterData = data;
 		});
+	}
+	private modalService = inject(NgbModal);
+	openVerticallyCentered(content: TemplateRef<any>) {
+		this.modalService.open(content, { centered: true });
 	}
 }
