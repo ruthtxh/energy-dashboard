@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { MapComponent } from './map/map.component';
-
+import { NgbConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ MapComponent],
+  imports: [MapComponent],
   template: `
     <main>
       <header class="brand-name">
@@ -19,5 +19,9 @@ import { MapComponent } from './map/map.component';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  // // disable ng-bootstrap animation
+  // constructor(ngbConfig: NgbConfig) {
+  //   ngbConfig.animation = false;
+  // }
   title = 'homes';
 }

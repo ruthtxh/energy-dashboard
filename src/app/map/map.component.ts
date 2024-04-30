@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, inject, TemplateRef, ViewEncapsulation, Input, NgZone } from '@angular/core';
 import { WeatherLocationComponent } from '../weather-location/weather-location.component';
 import { WeatherLocation } from '../weatherlocation';
 import { WeatherService } from '../weather.service';
@@ -9,7 +9,8 @@ import { Control } from 'leaflet';
 import LayersOptions = Control.LayersOptions;
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalContentComponent } from '../modal-content/modal-content.component';
 
 
 @Component({
@@ -18,11 +19,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 	imports: [LeafletModule,
 		LeafletMarkerClusterModule],
 	templateUrl: './map.component.html',
-
 	encapsulation: ViewEncapsulation.None,
 })
 
 export class MapComponent implements OnInit {
+	constructor(private _ngZone: NgZone) { }
 
 	// Weather location info from service
 	weatherLocationList: WeatherLocation[] = [];
@@ -34,7 +35,6 @@ export class MapComponent implements OnInit {
 		name: 'Open Street Map',
 		enabled: false,
 		layer: L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-
 			attribution: 'Open Street Map'
 		}),
 	};
@@ -78,14 +78,25 @@ export class MapComponent implements OnInit {
 							shadowUrl: 'leaflet/marker-shadow.png'
 						})
 					}
-				)
+				).on('click', () => {
+					this.open(el.name, el.label_location.latitude, el.label_location.longitude)
+				})
 				data.push(newMarker)
 			})
 			this.markerClusterData = data;
 		});
 	}
-	private modalService = inject(NgbModal);
-	openVerticallyCentered(content: TemplateRef<any>) {
-		this.modalService.open(content, { centered: true });
+
+	// ng-bootstrap modal
+	private modalService = inject(NgbModal)
+	open(name: string, lat: number, long: number) {
+		this._ngZone.run(() => {
+			const modalRef = this.modalService.open(ModalContentComponent, { size: 'xl', centered: true });
+			modalRef.componentInstance.name = name;
+			modalRef.componentInstance.lat = lat;
+			modalRef.componentInstance.long = long;
+		});
 	}
+
 }
+
