@@ -1,0 +1,12 @@
+.modal-dialog {
+    opacity: 0.8 !important;
+}
+
+.modal-content {
+    background-color: transparent;
+    overflow: hidden;
+}
+
+.modal-backdrop {
+    opacity: 0 !important;
+}

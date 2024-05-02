@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, inject, TemplateRef, ViewEncapsulation, Input, NgZone } from '@angular/core';
-import { WeatherLocationComponent } from '../weather-location/weather-location.component';
 import { WeatherLocation } from '../weatherlocation';
 import { WeatherService } from '../weather.service';
 // Must import this before the modules
@@ -20,6 +19,7 @@ import { ModalContentComponent } from '../modal-content/modal-content.component'
 		LeafletMarkerClusterModule],
 	templateUrl: './map.component.html',
 	encapsulation: ViewEncapsulation.None,
+	styleUrl: './map.component.css'
 })
 
 export class MapComponent implements OnInit {

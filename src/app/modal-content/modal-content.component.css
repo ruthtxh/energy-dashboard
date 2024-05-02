@@ -1,0 +1,3 @@
+.my-flex-card > div > div.card {
+    height: calc(100%);
+}
