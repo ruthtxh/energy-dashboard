@@ -4,7 +4,7 @@ import { WeatherLocation } from '../weatherlocation';
 import { WeatherService } from '../weather.service';
 // Must import this before the modules
 import * as L from 'leaflet';
-import { Control, MarkerClusterGroup } from 'leaflet';
+import { Control } from 'leaflet';
 import 'leaflet.markercluster';
 import LayersOptions = Control.LayersOptions;
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
@@ -54,7 +54,7 @@ export class MapComponent implements OnInit {
 	};
 
 	// Marker cluster stuff
-	markerClusterGroup: L.MarkerClusterGroup = new MarkerClusterGroup();
+	markerClusterGroup: L.MarkerClusterGroup = new window.L.MarkerClusterGroup();
 	markerClusterData: L.Marker[] = [];
 	markerClusterOptions: L.MarkerClusterGroupOptions = {};
 
