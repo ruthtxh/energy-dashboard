@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild, inject, TemplateRef, ViewEncapsulation, Input, NgZone } from '@angular/core';
+import { Component, OnInit, inject, ViewEncapsulation, NgZone } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { WeatherLocation } from '../weatherlocation';
 import { WeatherService } from '../weather.service';
 // Must import this before the modules
@@ -8,15 +9,15 @@ import { Control } from 'leaflet';
 import LayersOptions = Control.LayersOptions;
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalContentComponent } from '../modal-content/modal-content.component';
-
+import { IrradiationChartComponent } from '../irradiation-chart/irradiation-chart.component';
 
 @Component({
 	selector: 'markercluster-demo',
 	standalone: true,
-	imports: [LeafletModule,
-		LeafletMarkerClusterModule],
+	imports: [CommonModule, LeafletModule,
+		LeafletMarkerClusterModule, IrradiationChartComponent],
 	templateUrl: './map.component.html',
 	encapsulation: ViewEncapsulation.None,
 	styleUrl: './map.component.css'
@@ -27,6 +28,9 @@ export class MapComponent implements OnInit {
 
 	// Weather location info from service
 	weatherLocationList: WeatherLocation[] = [];
+	filteredWeatherLocationList: WeatherLocation[] = [];
+	filteredLat?: any;
+	filteredLong?: any;
 	weatherService: WeatherService = inject(WeatherService);
 
 	// Open Street Map Definition
@@ -46,7 +50,7 @@ export class MapComponent implements OnInit {
 	};
 	options = {
 		zoom: 10,
-		center: L.latLng(1.375, 103.839)
+		center: L.latLng(1.675, 103.839)
 	};
 
 	// Marker cluster stuff
@@ -55,7 +59,11 @@ export class MapComponent implements OnInit {
 	markerClusterOptions: L.MarkerClusterGroupOptions = {};
 
 	ngOnInit() {
-		this.refreshData();
+		this.weatherService.getAllWeatherLocations().then((weatherLocationList: WeatherLocation[]) => {
+			this.weatherLocationList = weatherLocationList
+			this.filteredWeatherLocationList = this.weatherLocationList;
+			this.refreshData();
+		});
 	}
 
 	markerClusterReady(group: L.MarkerClusterGroup) {
@@ -64,27 +72,51 @@ export class MapComponent implements OnInit {
 
 	refreshData(): void {
 		const data: L.Marker[] = [];
-		this.weatherService.getAllWeatherLocations().then((weatherLocationList: WeatherLocation[]) => {
-			this.weatherLocationList = weatherLocationList;
-			this.weatherLocationList.forEach(el => {
-				const newMarker = L.marker(
-					[el.label_location.latitude, el.label_location.longitude],
-					{
-						icon: L.icon({
-							iconSize: [25, 41],
-							iconAnchor: [13, 41],
-							iconUrl: 'leaflet/marker-icon.png',
-							iconRetinaUrl: 'leaflet/marker-icon-2x.png',
-							shadowUrl: 'leaflet/marker-shadow.png'
-						})
-					}
-				).on('click', () => {
-					this.open(el.name, el.label_location.latitude, el.label_location.longitude)
-				})
-				data.push(newMarker)
+		this.filteredWeatherLocationList.forEach(el => {
+			const newMarker = L.marker(
+				[el.label_location.latitude, el.label_location.longitude],
+				{
+					icon: L.icon({
+						iconSize: [25, 41],
+						iconAnchor: [13, 41],
+						iconUrl: 'leaflet/marker-icon.png',
+						iconRetinaUrl: 'leaflet/marker-icon-2x.png',
+						shadowUrl: 'leaflet/marker-shadow.png'
+					})
+				}
+			).on('click', () => {
+				this.open(el.name, el.label_location.latitude, el.label_location.longitude)
 			})
-			this.markerClusterData = data;
-		});
+			data.push(newMarker)
+		})
+		this.markerClusterData = data;
+	}
+
+	filterResults(text: string) {
+		if (!text) {
+			this.noResults();
+		}
+		else {
+			this.filteredWeatherLocationList = this.weatherLocationList.filter((weatherLocation) =>
+				weatherLocation?.name.toLowerCase() == text.toLowerCase()
+			);
+			if (this.filteredWeatherLocationList.length != 0) {
+				this.filteredLat = this.filteredWeatherLocationList[0].label_location.latitude;
+				this.filteredLong = this.filteredWeatherLocationList[0].label_location.longitude;
+			}
+			else{
+				this.noResults();
+			}
+		}
+		this.refreshData();
+		console.log(this.filteredLat)
+	}
+
+	noResults(): void {
+		this.filteredWeatherLocationList = this.weatherLocationList;
+		this.filteredLat = null;
+		this.filteredLong = null;
+		alert("Oops no match!");
 	}
 
 	// ng-bootstrap modal
@@ -97,6 +129,4 @@ export class MapComponent implements OnInit {
 			modalRef.componentInstance.long = long;
 		});
 	}
-
 }
-

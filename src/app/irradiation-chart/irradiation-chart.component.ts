@@ -1,7 +1,7 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, SimpleChanges, OnChanges, } from '@angular/core';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-import { IrradiationService } from '../../irradiation.service';
-import { Irradiation } from '../../irradiation';
+import { IrradiationService } from '../irradiation.service';
+import { Irradiation } from '../irradiation';
 
 @Component({
   selector: 'app-irradiation-chart',
@@ -11,12 +11,20 @@ import { Irradiation } from '../../irradiation';
   styles: ``
 })
 
-export class IrradiationChartComponent implements OnInit{
+export class IrradiationChartComponent implements OnInit {
   @Input() lat?: number;
   @Input() long?: number;
   irradiationService: IrradiationService = inject(IrradiationService);
   chartOptions: any = {};
   ngOnInit() {
+    this.refreshData();
+  }
+  
+  ngOnChanges(changes: SimpleChanges) {
+    this.refreshData();
+  }
+
+  refreshData(): void {
     this.irradiationService.getIrradiation(this.lat ?? 0, this.long ?? 0).then((irradiation: Irradiation) => {
       let dataPoints = [];
       for (let i = 0; i < irradiation.hourly.time.length; i++) {
