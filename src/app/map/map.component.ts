@@ -54,7 +54,7 @@ export class MapComponent implements OnInit {
 	};
 
 	// Marker cluster stuff
-	markerClusterGroup: L.MarkerClusterGroup = new L.MarkerClusterGroup();
+	markerClusterGroup: L.MarkerClusterGroup = new L.MarkerClusterGroup;
 	markerClusterData: L.Marker[] = [];
 	markerClusterOptions: L.MarkerClusterGroupOptions = {};
 
