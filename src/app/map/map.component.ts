@@ -4,8 +4,8 @@ import { WeatherLocation } from '../weatherlocation';
 import { WeatherService } from '../weather.service';
 // Must import this before the modules
 import * as L from 'leaflet';
+import { Control, MarkerClusterGroup } from 'leaflet';
 import 'leaflet.markercluster';
-import { Control } from 'leaflet';
 import LayersOptions = Control.LayersOptions;
 import { LeafletMarkerClusterModule } from '@asymmetrik/ngx-leaflet-markercluster';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
@@ -54,7 +54,7 @@ export class MapComponent implements OnInit {
 	};
 
 	// Marker cluster stuff
-	markerClusterGroup: L.MarkerClusterGroup = new L.MarkerClusterGroup;
+	markerClusterGroup: L.MarkerClusterGroup = new MarkerClusterGroup();
 	markerClusterData: L.Marker[] = [];
 	markerClusterOptions: L.MarkerClusterGroupOptions = {};
 
@@ -104,7 +104,7 @@ export class MapComponent implements OnInit {
 				this.filteredLat = this.filteredWeatherLocationList[0].label_location.latitude;
 				this.filteredLong = this.filteredWeatherLocationList[0].label_location.longitude;
 			}
-			else{
+			else {
 				this.noResults();
 			}
 		}
