@@ -50,8 +50,13 @@ export class MapComponent implements OnInit {
 	};
 	options = {
 		zoom: 10,
-		center: L.latLng(1.675, 103.839)
+		center: L.latLng(1.675, 103.839),
+		zoomControl: false
 	};
+
+	mapReady(map: L.Map) {
+		map.addControl(L.control.zoom({ position: 'bottomleft' }));
+	}
 
 	// Marker cluster stuff
 	markerClusterGroup: L.MarkerClusterGroup = new window.L.MarkerClusterGroup();
