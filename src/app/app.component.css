@@ -1,6 +1,7 @@
 :host {
   --content-padding: 10px;
 }
+
 header {
   display: block;
   height: 60px;
