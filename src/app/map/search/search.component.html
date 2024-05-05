@@ -1,0 +1,39 @@
+<!-- Search -->
+<div
+    style="position: absolute; top: 0; width:100%; display:flex; justify-content: center; max-height: 10vh; z-index: 1054;">
+    <div class="container-fluid mt-3" style="max-width: 500px;">
+        <div class="row my-flex-card">
+            <div class="col-lg-12 p-2">
+                <div class="d-flex align-items-center p-2  bg-secondary text-white" id="search-bar-container">
+                    <button type="button"
+                        class="btn btn-light p-3 rounded-circle btn-circle d-flex justify-content-center align-items-center">
+                        <i class="bi bi-gear"></i></button>
+                    <button type="button"
+                        class="btn btn-light p-3 rounded-circle btn-circle d-flex justify-content-center align-items-center">
+                        <i class="bi bi-hash"></i></button>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text p-0" style="border-radius:  50px 0 0 50px;">
+                            <button type="button"
+                                class="btn btn-light p-3 rounded-circle btn-circle d-flex justify-content-center align-items-center"><i
+                                    class="bi bi-funnel"></i> </button></span>
+                        <input type="text" class="form-control" placeholder="Search" aria-label="Search" #filter
+                            (keydown.enter)="filterValue(filter.value)">
+                        <span class="input-group-text p-0" style="border-radius: 0 50px 50px 0;">
+                            <button type="button"
+                                class="btn btn-light p-3 rounded-circle btn-circle d-flex justify-content-center align-items-center"
+                                (click)="filterValue(filter.value)"><i class="bi bi-search"></i></button></span>
+                    </div>
+                    <button type="button"
+                        class="btn btn-light p-3 rounded-circle btn-circle d-flex justify-content-center align-items-center">
+                        <i class="bi bi-bell"></i></button>
+                    <button type="button"
+                        class="btn btn-light p-3 rounded-circle btn-circle d-flex justify-content-center align-items-center">
+                        <i class="bi bi-bounding-box"></i></button>
+                    <button type="button"
+                        class="btn btn-light p-3 rounded-circle btn-circle d-flex justify-content-center align-items-center">
+                        <i class="bi bi-person-circle"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

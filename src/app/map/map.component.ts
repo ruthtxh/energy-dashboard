@@ -12,12 +12,13 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalContentComponent } from '../modal-content/modal-content.component';
 import { IrradiationChartComponent } from '../irradiation-chart/irradiation-chart.component';
+import { SearchComponent } from './search/search.component';
 
 @Component({
 	selector: 'markercluster-demo',
 	standalone: true,
 	imports: [CommonModule, LeafletModule,
-		LeafletMarkerClusterModule, IrradiationChartComponent],
+		LeafletMarkerClusterModule, IrradiationChartComponent, SearchComponent],
 	templateUrl: './map.component.html',
 	encapsulation: ViewEncapsulation.None,
 	styleUrl: './map.component.css'
