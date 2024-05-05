@@ -1,6 +1,6 @@
 import { Component, inject, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { IrradiationChartComponent } from '../irradiation-chart/irradiation-chart.component';
+import { IrradiationChartComponent } from '../shared/irradiation-chart/irradiation-chart.component';
 import { DonutChartComponent } from './donut-chart/donut-chart.component';
 import { MiniMapComponent } from './mini-map/mini-map.component';
 

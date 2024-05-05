@@ -1,7 +1,7 @@
 import { Component, inject, Input, OnInit, SimpleChanges, OnChanges, } from '@angular/core';
 import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-import { IrradiationService } from '../irradiation.service';
-import { Irradiation } from '../irradiation';
+import { IrradiationService } from 'src/app/irradiation.service';
+import { Irradiation } from 'src/app/irradiation';
 
 @Component({
   selector: 'app-irradiation-chart',

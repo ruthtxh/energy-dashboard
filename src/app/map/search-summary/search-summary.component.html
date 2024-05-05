@@ -1,0 +1,55 @@
+<div style="position: absolute; top: 70px; right: 0; z-index: 1054; max-height:60vh; overflow-y: auto"
+	*ngIf="filteredLat">
+	<div class="container-fluid mt-3">
+		<div class="row my-flex-card">
+			<div class="col-lg-6 p-2">
+				<div class="card bg-secondary text-white">
+					<div class="card-body">
+						<h5 class="card-title fw-bold mb-3">Assets</h5>
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<span class="h5 fw-bold">1452</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<span class="h5 fw-bold">1,461.23</span> <span> MWp</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-6 p-2">
+				<div class="card bg-secondary text-white">
+					<div class="card-body">
+						<h5 class="card-title fw-bold mb-3">Today's Performance</h5>
+						<div class="container">
+							<div class="row">
+								<div class="col-12">
+									<span class="h5 fw-bold">1,463.23</span> <span> MWh</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<span class="h5 fw-bold">23</span><span> MW</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row my-flex-card">
+			<div class="p-2">
+				<div class="card bg-secondary text-white">
+					<div class="card-body">
+						<h5 class="card-title fw-bold mb-3">Daily Energy Generated</h5>
+						<app-irradiation-chart [lat]="filteredLat" [long]="filteredLong"></app-irradiation-chart>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
